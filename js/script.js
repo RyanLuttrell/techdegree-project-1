@@ -14,8 +14,9 @@ project 1 - A Random Quote Generator
 const quotes = [
   {
       quote: "It is the possibility of having a dream come true that makes life interesting",
-      source: "Nelson Mandela",
-      citation: "The Alchemist" 
+      source: "Paulo Coelho",
+      citation: "The Alchemist",
+      year: 1988
   },
   {
       quote: "The way to get started is to quit talking and begin doing.",
@@ -86,14 +87,22 @@ const quotes = [
 /***
  * `getRandomQuote` function
 ***/
+let quote;
+let source;
 
-function getRandomQuote(){}
+function getRandomQuote(){
+  let randomNumber = Math.floor(Math.random()*quotes.length);
+  quote = quotes[randomNumber][0];
+  source = quotes[randomNumber][1];
+}
 
 /***
  * `printQuote` function
 ***/
 
-function printQuote(){}
+function printQuote(){
+  getRandomQuote();
+}
 
 /***
  * click event listener for the print quote button
