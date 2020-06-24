@@ -1,16 +1,4 @@
-/******************************************
-Treehouse FSJS Techdegree:
-project 1 - A Random Quote Generator
-******************************************/
-
-// For assistance: 
-  // Check the "Project Resources" section of the project instructions
-  // Reach out in your Slack community - https://treehouse-fsjs-102.slack.com/app_redirect?channel=chit-chat
-
-/*** 
- * `quotes` array 
-***/
-
+/*An array of objects detailing quotes, sources, citationss and years*/
 const quotes = [
   {
       quote: "It is the possibility of having a dream come true that makes life interesting",
@@ -20,7 +8,8 @@ const quotes = [
   },
   {
       quote: "The way to get started is to quit talking and begin doing.",
-      source: "Walt Disney"
+      source: "Walt Disney",
+      tags: "The greats"
   },
   {
       quote: "Your time is limited, so don't waste it living someone else's life. Don't be trapped by dogma – which is living with the results of other people's thinking.",
@@ -84,44 +73,61 @@ const quotes = [
   }
 ];
 
-/***
- * `getRandomQuote` function
-***/
+/*This function will generate a random number and select an object from the quotes array*/
 
 function getRandomQuote(){
   const randomNumber = Math.floor(Math.random()*quotes.length);
   return quotes[randomNumber];
 }
 
-/***
- * `printQuote` function
-***/
+/*This function gathers all of the necessary details from the quote object and displays them on the screen*/
 
 function printQuote(){
   const quoteObject = getRandomQuote();
+//The let variable holds the minimum necessary data to be displayed on the page
   let html = `
     <p class="quote">${quoteObject.quote}</p>
     <p class="source">${quoteObject.source}
   `;
+//This checks to see if there is a citation property in the object and adds it to the original html string
   if (quoteObject.citation !== undefined){
     let citation = `
     <span class="citation"> ${quoteObject.citation} </span>
-  `;
+    `;
     html = `${html} ${citation}`;
   } 
+//This checks to see if there is a year property in the quotes object and adds it to the html string
   if (quoteObject.year !== undefined){
     let year = `
     <span class="citation"> ${quoteObject.year} </span>
-  `;
+    `;
     html = `${html} ${year}`;
   } 
+  if (quoteObject.tags !== undefined){
+    let tags = `
+    <span class="tags"> ${quoteObject.tags} </span>
+    `;
+    html = `${html} ${tags}`;
+  } 
   html += `</p>`;
-  document.getElementById('quote-box').innerHTML = html; 
-}
 
+//This takes the full string found in the html variable and displays in on the page in the proper format
+  document.getElementById('quote-box').innerHTML = html; 
+//This calls the background function to change the background to a random colour everytime the quote changes
+  document.body.style.backgroundColor = background();
+}
+//This function will randomly create and rgb value to change the colour of the background
+function background() {
+  let red = Math.floor(Math.random()*256);
+  let green = Math.floor(Math.random()*256);
+  let blue = Math.floor(Math.random()*256);
+
+//This combines all of the value to creat a string that house the rgb value for a random colour
+return `rgb(${red}, ${green}, ${blue})`
+}
 /***
  * click event listener for the print quote button
  * DO NOT CHANGE THE CODE BELOW!!
 ***/
-
+setInterval(printQuote, 10000);
 document.getElementById('load-quote').addEventListener("click", printQuote, false);
