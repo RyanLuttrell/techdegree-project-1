@@ -80,20 +80,19 @@ const quotes = [
   },
   {
       quote: "Do not go where the path may lead, go instead where there is no path and leave a trail.",
-      source: "Ralph Waldo Emerson"
+      source: "Ralph Waldo Emerson",
+      citation: 'Ryan Luttrell',
+      year: 2020
   }
 ];
 
 /***
  * `getRandomQuote` function
 ***/
-let quote;
-let source;
 
 function getRandomQuote(){
-  let randomNumber = Math.floor(Math.random()*quotes.length);
-  quote = quotes[randomNumber][0];
-  source = quotes[randomNumber][1];
+  const randomNumber = Math.floor(Math.random()*quotes.length);
+  return quotes[randomNumber];
 }
 
 /***
@@ -101,7 +100,31 @@ function getRandomQuote(){
 ***/
 
 function printQuote(){
-  getRandomQuote();
+  const quoteObject = getRandomQuote();
+  const html = `
+    <p class="quote">${quoteObject.quote}</p>
+    <p class="source">${quoteObject.source}
+    
+    
+    </p>
+  `;
+  if (quoteObject.length === 3){
+    html = `
+    <p class="quote">${quoteObject.quote}</p>
+    <p class="source"> ${quoteObject.source}
+      <span class="citation"> ${quoteObject.citation} </span>
+    </p>
+    `
+  } else if (quoteObject.length === 4){
+    html = `
+    <p class="quote">${quoteObject.quote}</p>
+    <p class="source"> ${quoteObject.source}
+      <span class="citation"> ${quoteObject.citation} </span>
+      <span class="year"> ${quoteObject.year} </span>
+    </p>
+    `
+  };
+  document.getElementById('quote-box').innerHTML = html; 
 }
 
 /***
